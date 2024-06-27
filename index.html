@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+    />
+
+    <title>WebRTC - GPE DevWeeklies</title>
+
+    <link rel="stylesheet" href="dist/reset.css" />
+    <link rel="stylesheet" href="dist/reveal.css" />
+    <link rel="stylesheet" href="dist/theme/simple.css" />
+
+    <!-- Theme used for syntax highlighted code -->
+    <link rel="stylesheet" href="plugin/highlight/monokai.css" />
+  </head>
+  <body>
+    <div class="reveal">
+      <div class="slides">
+        <section class="title-slide segue nobackground">
+          <hgroup class="auto-fadein">
+            <h1>WebRTC</h1>
+            <h2 data-config-subtitle>DevDaily</h2>
+            <p data-config-presenter>Bruno Santos</p>
+          </hgroup>
+        </section>
+
+        <section>
+          <section><h2>What is WebRTC?</h2></section>
+          <section>
+            <ul>
+              <li>RTC - Real Time Communication</li>
+              <li>Collection of API's & Protocols</li>
+              <li>Enables media capture (audio, video)</li>
+              <li>Supports audio, video and data transfers</li>
+              <li>Peer-to-peer connections</li>
+            </ul>
+          </section>
+
+          <section>
+            <ul>
+              <li>~13 years of development</li>
+              <li>Open Standard</li>
+              <li>
+                Open source implementation (<a
+                  href="https://webrtc.googlesource.com/src/"
+                  >libwebrtc</a
+                >)
+								<ul>
+									<li>From Google</li>
+								</ul>
+              </li>
+              
+            </ul>
+          </section>
+
+          <section>
+            <h3>Brief Timeline</h3>
+            <ul>
+              <li>2011 - First Draft</li>
+              <li>2013 - First cross browser video call</li>
+              <li>2014 - Cross browser data transfer</li>
+              <li>2015 - Safari and Edge support</li>
+              <li>2020 - 1.0 version</li>
+            </ul>
+          </section>
+
+          <section class="r-stack">
+            <h4>Usage of GetUserMediaPromise</h4>
+            <img src="images/usage.png" alt="WebRTC Usage" />
+            <small
+              >Source:
+              <a
+                href="https://chromestatus.com/metrics/feature/timeline/popularity/1402"
+                >https://chromestatus.com/metrics/feature/timeline/popularity/1402</a
+              ></small
+            >
+          </section>
+        </section>
+
+        <section><h2>Technical Deep Dive</h2></section>
+
+        <section>
+          <section>
+            <h2>Browser API</h2>
+            <article>
+              <ul>
+                <li>Media Stream</li>
+                <li>RTCPeerConnection</li>
+                <li>RTCDataChannel</li>
+              </ul>
+            </article>
+          </section>
+
+          <section>
+            <h2>MediaStream API</h2>
+            <article>
+              <ul>
+                <li>Acquire and handle Media</li>
+                <li>MediaStream: a stream of audio and/or video</li>
+                <li>
+                  Navigator.mediadevices API methods
+                  <ul>
+                    <li>getUserMedia() - Capture camera/microphone</li>
+                    <li>getDisplayMedia() - Capture screen/window</li>
+                  </ul>
+                </li>
+              </ul>
+            </article>
+          </section>
+
+          <section>
+            <h2>Demos</h2>
+            <ul>
+              <li>
+                <a href="https://simpl.info/getusermedia/sources/"
+                  >simpl.info/gum</a
+                >
+              </li>
+              <li>
+                <a href="https://webcamtoy.com/" target="_blank">Webcam Toy</a>
+              </li>
+              <li>
+                <a
+                  href="https://webapis-playground.vercel.app/demo/screen-capture"
+                  >Screen Capture</a
+                >
+              </li>
+            </ul>
+          </section>
+
+          <section data-auto-animate>
+            <h2>RTCPeerConnection</h2>
+          </section>
+          <section data-auto-animate>
+            <h2>RTCPeerConnection</h2>
+            <article>
+              <ul>
+                <li>Manages communication between peers</li>
+                <li>Enables sending audio and video</li>
+              </ul>
+            </article>
+          </section>
+
+          <section data-auto-animate>
+            <h2>RTCPeerConnection</h2>
+            <article>
+              <ul>
+                <li>Manages communication between peers</li>
+                <li>Enables sending audio and video</li>
+                <li>
+                  Does much more
+                  <ul>
+                    <li>Signal processing</li>
+                    <li>Codec handling</li>
+                    <li>Peer to Peer Communication</li>
+                    <li>Bandwith Management</li>
+                    <li>...</li>
+                  </ul>
+                </li>
+              </ul>
+            </article>
+          </section>
+
+          <section>
+            <h2>RTCDataChannel</h2>
+            <article>
+              <ul>
+                <li>Bidirectional peer-to-peer data transfers</li>
+                <li>Similar API to WebSockets</li>
+                <li>Supports unreliable/unordered channels (~UDP)</li>
+              </ul>
+            </article>
+          </section>
+        </section>
+
+        <section>
+          <section><h2>Servers & Protocols</h2></section>
+          <section><h2>Peer to Peer, but...</h2></section>
+          <section><h2>we need 3 servers</h2></section>
+
+          <section>
+            <h2>Signaling</h2>
+            <ul>
+              <li>User discovery and initial connection setup</li>
+              <li>
+                Need to exchange
+                <ul>
+                  <li>supported codecs/resolutions, etc - (SDP)</li>
+                  <li>
+                    Network information such as my address - ICE Candidates
+                  </li>
+                </ul>
+              </li>
+              <li>WebRTC spec doesn't specify any protocol</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>STUN & TURN</h2>
+            <p>Because there are firewalls and NATs</p>
+          </section>
+
+          <section>
+            <h2>Ideal World</h2>
+            <img
+              src="images/ideal_world.jpg"
+              alt="Ideal World"
+              class="stretch"
+            />
+          </section>
+
+          <section>
+            <h2>Real World</h2>
+            <img src="images/real_world.jpg" alt="Real World" class="stretch" />
+          </section>
+
+          <section>
+            <h2>STUN</h2>
+            <ul>
+              <li>
+                <b>S</b>ession <b>T</b>raversal <b>U</b>tilities for <b>N</b>AT
+              </li>
+              <li>Assist on NAT/Firewall traversal</li>
+              <li>Discover Public IP</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>STUN</h2>
+            <img src="images/STUN.jpg" alt="STUN" class="stretch" />
+          </section>
+
+          <section>
+            <h2>TURN</h2>
+            <ul>
+              <li>
+                <b>T</b>raversal <b>U</b>sing <b>R</b>elays around <b>N</b>AT
+              </li>
+              <li>Relay services in case peer-to-peer communication fails</li>
+            </ul>
+          </section>
+
+          <section>
+            <h2>TURN</h2>
+            <img src="images/TURN.jpg" alt="TURN" class="stretch" />
+          </section>
+        </section>
+
+        <section>
+          <h2>More information</h2>
+
+          <article>
+            <ul>
+              <li>
+                <a href="http://www.youtube.com/watch?v=p2HzZkd2A40"
+                  >Video: Real-time communication with WebRTC: Google I/O
+                  2013</a
+                >
+              </li>
+              <li>Web.Dev</li>
+              <ul>
+                <li>
+                  <a href="https://web.dev/articles/getusermedia-intro"
+                    >Capturing Audio & Video in HTML5</a
+                  >
+                </li>
+                <li>
+                  <a href="https://web.dev/articles/webrtc-basics"
+                    >Getting Started with WebRTC</a
+                  >
+                </li>
+                <li>
+                  <a href="https://web.dev/articles/webrtc-infrastructure"
+                    >WebRTC in the real world: STUN, TURN and signaling</a
+                  >
+                </li>
+              </ul>
+            </ul>
+          </article>
+        </section>
+      </div>
+    </div>
+
+    <script src="dist/reveal.js"></script>
+    <script src="plugin/notes/notes.js"></script>
+    <script src="plugin/markdown/markdown.js"></script>
+    <script src="plugin/highlight/highlight.js"></script>
+    <script>
+      // More info about initialization & config:
+      // - https://revealjs.com/initialization/
+      // - https://revealjs.com/config/
+      Reveal.initialize({
+        hash: true,
+
+        // Learn about plugins: https://revealjs.com/plugins/
+        plugins: [RevealMarkdown, RevealHighlight, RevealNotes],
+      });
+    </script>
+  </body>
+</html>
